@@ -17,12 +17,8 @@ int main(void)
         if(T[i]==num)
         {
             printf("cet element est present \n");
+            return 1;
         }
-        else
-        {
-            printf("Cet element n'est pas present \n");
-        }
-        
     }
     return 0;
 }
