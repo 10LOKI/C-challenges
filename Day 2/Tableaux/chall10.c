@@ -4,7 +4,7 @@ int main(void)
     int n;
     printf("Veuillez saisir la taille du tableau :\n");
     scanf("%d",&n);
-    int T[n] ,num;
+    int T[n] ,num , cmp = 0;
     printf("Veuillez saisir les valeurs du tableau :\n");
     for(int i=0;i<n;i++)
     {
@@ -19,6 +19,14 @@ int main(void)
             printf("cet element est present \n");
             return 1;
         }
+        else
+        {
+            cmp ++;
+        }
+    }
+    if(cmp == 0)
+    {
+        printf("%d cet element est absent \n",num);
     }
     return 0;
 }
