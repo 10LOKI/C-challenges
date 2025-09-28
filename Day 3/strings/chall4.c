@@ -6,6 +6,7 @@ int main(void)
     char str2[20];
     scanf("%s",str1);
     scanf("%s",str2);
+    
     int l1 = strlen(str1);
     int l2 = strlen(str2);
     /*
