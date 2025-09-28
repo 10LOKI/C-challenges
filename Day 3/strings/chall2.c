@@ -2,10 +2,14 @@
 #include <string.h>
 int main(void)
 {
-    char str[20];
+    char str[100];
+    char i;
     printf("Veuillez saisr une chaine du caractere :\n");
     fgets(str,20,stdin);
-    int a = strlen(str);
-    printf("%d\n",a);
+    while(str[i] != '\0')
+    {
+        i++;
+    }
+    printf("%d\n",i);
     return 0;
 }
