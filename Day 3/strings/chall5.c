@@ -4,6 +4,8 @@ int main(void)
 {
     char str1[20];
     gets(str1);
+    //strrev(str1);
+
     int l=strlen(str1) , temp ;
     for(int i=0;i<l/2;i++)
     {
