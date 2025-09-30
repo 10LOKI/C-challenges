@@ -6,77 +6,98 @@
 
 typedef struct 
 {
-    char name[MX];
+    char nom[MX];
     char num_tel[MX];
     char e_mail[MX];
 }contact;
 
-contact nemra[MX];
+contact num[MX];
 int nb_contact = 0;
 int nbr;
 char rech[MX];
+int b1;
+int contact_trouve = -1;
 
-void rechercher()
-{
-if(nb_contact == 0)
-{
-    printf("=======> le systeme est encore vide \n\n");
-}
-else
-{
-    getchar();
-    printf("Veuillez saisir le nom du contact à modifier :\n");
-    fgets(rech,MX,stdin);
-    rech[strcspn(rech,"\n")]= 0;
-
-    int contact_trouve = -1;
-    for(int b = 0; b <nbr; b++)
-    {
-    if(strcmp(rech,nemra[b].name) == 0)
-    {
-        contact_trouve = b;
-        break;
-    }
-    }
-    if(contact_trouve == -1)
-    {
-        printf("Contact non trouve.\n");
-    }
-else
-    { 
-    printf("Nouveau nom : ");
-    fgets(nemra[contact_trouve].name, MX, stdin);
-    nemra[contact_trouve].name[strcspn(nemra[contact_trouve].name, "\n")] = 0;
-    printf("Nouvel numero de telephone : ");
-    fgets(nemra[contact_trouve].num_tel, MX, stdin);
-    nemra[contact_trouve].num_tel[strcspn(nemra[contact_trouve].num_tel, "\n")] = 0;
-    printf("Nouveau email : ");
-    scanf("%f", &nemra[contact_trouve].e_mail);
-    getchar();
-    }
-}
-}
+// la fonction de l'ajout
 void ajout()
 {
     printf("\nCombien de contact Voulez vous saisir :\n");
     scanf("%d",&nbr);
+    getchar();
+    if (nb_contact + nbr > MX) {
+    printf("impossible d'ajouter %d contact !\n", nbr);
+    return;
+    }
     for(int a =0 ;a<nbr;a++)
     {
-    getchar();
     printf("\nVeuillez saisir le Nom du contact :\n");
     printf("Nom du contact :  ");
-    fgets(nemra[a].name,MX,stdin);
+    fgets(num[a].nom,MX,stdin);
     printf("Numero de Telephone :  ");
-    fgets(nemra[a].num_tel,MX,stdin);
+    fgets(num[a].num_tel,MX,stdin);
     printf("Email de la personne :  ");
-    fgets(nemra[a].e_mail,MX,stdin);
+    fgets(num[a].e_mail,MX,stdin);
     nb_contact++;
     }
 }
-
+int rechercher()
+{
+    char temp[20];
+    int f = -1;
+    printf("Veuillez saisir le nom du contact a rechercher :\n");
+    fgets(temp,20,stdin);
+    temp[strcspn(temp,"\n")]=0;
+    
+    for(int i =0 ; i< MX ;i++){
+        char nom_temp[MX];
+        strcpy(nom_temp ,num[i].nom);
+        nom_temp[strcspn(nom_temp,"\n")]=0;
+        if( strcmp(nom_temp,temp)==0  ){
+            f = i ;
+            break;
+        }
+    }
+    if(f==-1){
+        printf("contact n'est pas trouve \n");
+        return;
+    }
+}
+void afficher_contact(int index)
+{
+    printf("\nNom: %s\n", num[index].nom);
+    printf("Telephone: %s\n", num[index].num_tel);
+    printf("Email: %s\n\n", num[index].e_mail);
+}
 void modif()
 {
 rechercher();
+if(contact_trouve == -1)
+{
+    return;
+}
+printf("1 . Modifier les informations :\n");
+printf("2 . Exit \n");
+scanf("%d",&b1);
+switch(b1)
+{
+    case 1 :
+    getchar();
+    printf("\nNouveau nom :\n");
+    fgets(num[contact_trouve].nom,MX,stdin);
+    num[contact_trouve].nom[strcspn(num[contact_trouve].nom,"\n")] = 0;
+    printf("\nNouveau numero de telephone :\n");
+    fgets(num[contact_trouve].num_tel,MX,stdin);
+    num[contact_trouve].num_tel[strcspn(num[contact_trouve].num_tel,"\n")]= 0;
+    printf("\nNouveau email :\n");
+    fgets(num[contact_trouve].e_mail,MX,stdin);
+    num[contact_trouve].e_mail[strcspn(num[contact_trouve].e_mail ,"\n")]= 0;
+    break;
+    case 2:
+    printf("Retour au menu.\n");
+    break;
+    default:
+    printf("Choix invalide !\n");
+}
 }
 void menu()
 {
@@ -92,21 +113,16 @@ do
     printf("5  . Rechercher un Contact\n");
     printf("0  . sortir du systeme \n");
     printf("\n\nVeuillez saisir un choix : \n");
-    int nett = scanf("%d",&button);
+    scanf("%d",&button);
 
-if(nett != 1) {
-        printf("invalide input");
-        while(getchar() != '\n');
-        continue;
-    }
-    while(getchar()!= '\n');
-
+    getchar();
     switch (button)
     {
     case 1:
     ajout();
     break;
     case 2:
+    modif();
     break;
     case 3:
     break;
